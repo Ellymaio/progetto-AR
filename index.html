@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AR Modello 3D</title>
+    <!-- A-Frame -->
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <!-- AR.js -->
+    <script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js/aframe/build/aframe-ar.js"></script>
+    <style>
+        body { margin: 0; overflow: hidden; }
+        canvas { width: 100%; height: 100%; }
+    </style>
+</head>
+<body>
+    <a-scene embedded arjs>
+        <!-- Marker predefinito Hiro -->
+        <a-marker preset="hiro">
+            <!-- Modello 3D animato -->
+            <a-entity 
+                gltf-model="animazione.glb" <!-- Nome del file GLB -->
+                scale="0.5 0.5 0.5" <!-- Dimensioni del modello -->
+                position="0 0 0" <!-- Posizione del modello -->
+                animation-mixer> <!-- Attiva l'animazione, se il modello è animato -->
+            </a-entity>
+        </a-marker>
+        <a-entity camera></a-entity> <!-- Camera AR -->
+    </a-scene>
+</body>
+</html>
