@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AR Modello 3D - Risoluzione Fotocamera</title>
+    <title>AR Modello 3D - Prova</title>
     <!-- A-Frame -->
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
     <!-- AR.js -->
@@ -14,20 +14,19 @@
     </style>
 </head>
 <body>
-    <a-scene embedded arjs='sourceType: webcam; sourceWidth: 1280; sourceHeight: 720;'>
+    <a-scene embedded arjs>
         <!-- Marker predefinito Hiro -->
         <a-marker preset="hiro">
             <!-- Modello 3D animato -->
             <a-entity 
-                gltf-model="animazione.glb"
+                gltf-model="animazione.glb" <!-- Modello 3D, inserisci il nome corretto del tuo file -->
                 scale="0.5 0.5 0.5"
                 position="0 0 0"
                 animation-mixer>
             </a-entity>
         </a-marker>
 
-        <!-- Imposta la camera senza zoom -->
-        <a-entity camera position="0 0 5" look-controls></a-entity>
+        <a-entity camera></a-entity>
     </a-scene>
 </body>
 </html>
