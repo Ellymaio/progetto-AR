@@ -14,7 +14,7 @@
     </style>
 </head>
 <body>
-    <a-scene embedded arjs="sourceType: webcam; facingMode: environment;">
+    <a-scene embedded arjs>
         <!-- Marker predefinito Hiro -->
         <a-marker preset="hiro">
             <!-- Modello 3D animato -->
@@ -28,5 +28,27 @@
 
         <a-entity camera></a-entity>
     </a-scene>
+
+    <script>
+        // Override dei constraints per selezionare una fotocamera con lunghezza focale normale
+        var constraints = {
+            video: {
+                facingMode: { exact: "environment" },
+                width: { ideal: 1280 },
+                height: { ideal: 720 },
+                zoom: false,  // Questo parametro dovrebbe evitare lo zoom non necessario
+            }
+        };
+
+        // Forziamo la selezione dei constraints
+        navigator.mediaDevices.getUserMedia(constraints)
+            .then(function(stream) {
+                const video = document.querySelector('video');
+                video.srcObject = stream;
+            })
+            .catch(function(err) {
+                console.log("Errore nel selezionare la fotocamera: " + err);
+            });
+    </script>
 </body>
 </html>
