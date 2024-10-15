@@ -14,12 +14,12 @@
     </style>
 </head>
 <body>
-    <a-scene embedded arjs>
+    <a-scene embedded arjs="sourceType: webcam; facingMode: environment;">
         <!-- Marker predefinito Hiro -->
         <a-marker preset="hiro">
             <!-- Modello 3D animato -->
             <a-entity 
-                gltf-model="animazione.glb" <!-- Sostituisci con il nome del tuo file .glb -->
+                gltf-model="animazione.glb"  <!-- Sostituisci con il nome del tuo file .glb -->
                 scale="0.5 0.5 0.5"
                 position="0 0 0"
                 animation-mixer>
