@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AR Test Debug</title>
+    <title>AR Test Minimale</title>
     <!-- A-Frame -->
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
     <!-- AR.js -->
@@ -11,55 +11,17 @@
     <style>
         body { margin: 0; overflow: hidden; }
         canvas { width: 100%; height: 100%; }
-        button {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            padding: 10px;
-            background-color: red;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
     </style>
 </head>
 <body>
-
-    <!-- Bottone per resettare la pagina -->
-    <button onclick="resetAR()">Reset AR/VR</button>
-
-    <a-scene embedded arjs="sourceType: webcam;" vr-mode-ui="enabled: false" debug>
-        <!-- Marker predefinito Hiro -->
+    <a-scene embedded arjs="sourceType: webcam;">
+        <!-- Marker Hiro -->
         <a-marker preset="hiro">
-            <!-- Aggiungi un cubo più grande e visibile per il test -->
-            <a-box position="0 0.5 0" material="color: red;" scale="1 1 1"></a-box>
+            <!-- Un cubo semplice per il test -->
+            <a-box position="0 0.5 0" material="color: red;"></a-box>
         </a-marker>
         <!-- Camera -->
         <a-entity camera></a-entity>
     </a-scene>
-
-    <script>
-        // Funzione per resettare la pagina
-        function resetAR() {
-            location.reload(true); // Ricarica la pagina senza usare la cache
-        }
-
-        // Disabilita la cache ogni volta che si carica la pagina
-        window.addEventListener('load', function() {
-            if ('serviceWorker' in navigator) {
-                navigator.serviceWorker.getRegistrations().then(function(registrations) {
-                    for(let registration of registrations) {
-                        registration.unregister();
-                    }
-                });
-            }
-        });
-
-        // Azzera i permessi di fotocamera al ricaricamento
-        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-            navigator.mediaDevices.getUserMedia({ video: true });
-        }
-    </script>
-
 </body>
 </html>
