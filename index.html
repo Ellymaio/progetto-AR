@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AR Test Reset</title>
+    <title>AR Test Debug</title>
     <!-- A-Frame -->
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
     <!-- AR.js -->
@@ -28,12 +28,13 @@
     <!-- Bottone per resettare la pagina -->
     <button onclick="resetAR()">Reset AR/VR</button>
 
-    <a-scene embedded arjs="sourceType: webcam;" reset-page>
+    <a-scene embedded arjs="sourceType: webcam;" vr-mode-ui="enabled: false" debug>
         <!-- Marker predefinito Hiro -->
         <a-marker preset="hiro">
-            <!-- Aggiungi un cubo per il test -->
-            <a-box position="0 0.5 0" material="color: red;" scale="0.5 0.5 0.5"></a-box>
+            <!-- Aggiungi un cubo più grande e visibile per il test -->
+            <a-box position="0 0.5 0" material="color: red;" scale="1 1 1"></a-box>
         </a-marker>
+        <!-- Camera -->
         <a-entity camera></a-entity>
     </a-scene>
 
