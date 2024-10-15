@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AR Test Debug - Stemkoski Adapted</title>
+    <title>AR Test con Pulsante AR</title>
     <!-- A-Frame -->
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
-    <!-- AR.js con Three.js -->
+    <!-- AR.js -->
     <script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js/aframe/build/aframe-ar.js"></script>
     <style>
         body { margin: 0; overflow: hidden; }
@@ -21,15 +21,25 @@
             border: none;
             cursor: pointer;
         }
+        #error {
+            position: absolute;
+            top: 50px;
+            left: 10px;
+            color: red;
+            font-size: 18px;
+            display: none; /* Nasconde l'errore di default */
+        }
     </style>
 </head>
 <body>
 
-    <!-- Bottone per resettare la pagina -->
-    <button onclick="resetAR()">Reset AR/VR</button>
+    <div id="error">Errore: impossibile accedere alla fotocamera!</div>
+
+    <!-- Bottone per attivare la fotocamera AR -->
+    <button id="arButton">Attiva AR</button>
 
     <a-scene embedded arjs="sourceType: webcam;" vr-mode-ui="enabled: false" debug>
-        <!-- Marker predefinito Hiro, puoi sostituirlo con un marker personalizzato -->
+        <!-- Marker predefinito Hiro -->
         <a-marker preset="hiro">
             <!-- Modello 3D o un cubo di esempio -->
             <a-box position="0 0.5 0" material="color: red;" scale="1 1 1" rotation="0 45 0" animation="property: rotation; to: 0 405 0; loop: true; dur: 4000"></a-box>
@@ -39,26 +49,24 @@
     </a-scene>
 
     <script>
-        // Funzione per resettare la pagina
-        function resetAR() {
-            location.reload(true); // Ricarica la pagina senza usare la cache
-        }
-
-        // Disabilita la cache ogni volta che si carica la pagina
-        window.addEventListener('load', function() {
-            if ('serviceWorker' in navigator) {
-                navigator.serviceWorker.getRegistrations().then(function(registrations) {
-                    for(let registration of registrations) {
-                        registration.unregister();
-                    }
-                });
+        // Funzione per attivare la fotocamera AR
+        document.getElementById('arButton').onclick = function() {
+            // Verifica i permessi della fotocamera
+            if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+                navigator.mediaDevices.getUserMedia({ video: true })
+                    .then(function(stream) {
+                        // Se la fotocamera si avvia correttamente, nascondi il messaggio di errore
+                        document.getElementById('error').style.display = 'none';
+                        // Attiva l'Ar.js e la fotocamera
+                        document.querySelector('a-scene').setAttribute('arjs', 'sourceType: webcam;');
+                    })
+                    .catch(function(err) {
+                        // Se c'è un errore, mostra il messaggio
+                        document.getElementById('error').style.display = 'block';
+                        console.error("Errore della fotocamera: ", err);
+                    });
             }
-        });
-
-        // Azzera i permessi di fotocamera al ricaricamento
-        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-            navigator.mediaDevices.getUserMedia({ video: true });
-        }
+        };
     </script>
 
 </body>
